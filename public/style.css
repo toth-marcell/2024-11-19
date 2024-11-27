@@ -1,0 +1,49 @@
+body {
+  font-family: sans-serif;
+  max-width: 150ch;
+  margin: 50px auto;
+  background: hsl(230, 25%, 10%);
+  color: white;
+}
+#mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 25px;
+}
+#editForm {
+  width: max-content;
+  margin: auto;
+}
+form > * {
+  display: block;
+  margin-block: 10px;
+}
+div > form {
+  margin-top: 50px;
+}
+table {
+  border-collapse: collapse;
+  height: fit-content;
+}
+th,
+td {
+  border: 1px solid white;
+  padding: 15px;
+}
+a {
+  color: white;
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+#errormsg {
+  border: 2px solid red;
+  padding: 5px;
+}
+button {
+  cursor: pointer;
+}
+tr > :last-child > * {
+  display: inline-block;
+}

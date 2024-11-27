@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cats</title>
+  </head>
+  <body>
+    <div id="mainGrid">
+      <div>
+        <a href="/api/cats">download json</a>
+        <% if (typeof msg != "undefined") { -%>
+        <p id="errormsg"><%= msg %></p>
+        <% } %>
+        <form action="/cats" method="post">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value="<%= typeof name != 'undefined' ? name : '' %>"
+          >
+          <label for="age">Age</label>
+          <input
+            type="text"
+            name="age"
+            id="age"
+            value="<%= typeof age != 'undefined' ? age : '' %>"
+          >
+          <button>New cat</button>
+        </form>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Created at</th>
+            <th>Updated at</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (cat of cats) { -%>
+          <tr>
+            <td><%= cat.id %></td>
+            <td><%= cat.name %></td>
+            <td><%= cat.age %></td>
+            <td>
+              <%= cat.createdAt.toISOString().replace("T"," ")
+              .replace(/:[^:]*Z/,"") %>
+            </td>
+            <td>
+              <%= cat.updatedAt.toISOString().replace("T"," ")
+              .replace(/:[^:]*Z/,"") %>
+            </td>
+            <td>
+              <a href="/editcat?id=<%= cat.id %>"
+                ><button type="button">Edit</button></a
+              >
+              <form action="/deletecat?id=<%= cat.id %>" method="post">
+                <button>Delete</button>
+              </form>
+              <!-- <form action="/copycat?id=<%= cat.id %>" method="post">
+                <button>Duplicate</button>
+              </form> -->
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

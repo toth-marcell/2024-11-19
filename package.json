@@ -1,0 +1,26 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@awmottaz/prettier-plugin-void-html": "^1.6.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "prettier": "^3.3.3",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  },
+  "prettier": {
+    "plugins": [
+      "@awmottaz/prettier-plugin-void-html"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "*.ejs"
+        ],
+        "options": {
+          "parser": "html"
+        }
+      }
+    ]
+  }
+}

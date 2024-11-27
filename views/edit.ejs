@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editing cat <%= cat.id %></title>
+  </head>
+  <body>
+    <form action="/editcat?id=<%= cat.id %>" method="post" id="editForm">
+      <p>Editing cat with id <%= cat.id %></p>
+      <% if (typeof msg != "undefined") { %>
+      <p id="errormsg"><%= msg %></p>
+      <% } %>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" value="<%= cat.name %>">
+      <label for="age">Age</label>
+      <input type="text" name="age" id="age" value="<%= cat.age %>">
+      <div>
+        <a href="/cats"><button type="button">Cancel</button></a>
+        <button>Save cat</button>
+      </div>
+    </form>
+  </body>
+</html>
