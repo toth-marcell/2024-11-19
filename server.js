@@ -9,25 +9,35 @@ app.set("view engine", "ejs");
 
 // api
 
+function apiError(req, res, msg) {
+  res.statusCode = 400;
+  res.json({ msg: msg });
+}
+
 app.get("/api/cats", async (req, res) => {
   res.json(await Cat.findAll());
 });
 
 app.post("/api/cats", async (req, res) => {
-  if (
-    !(req.body.name && req.body.age) ||
-    isNaN(parseInt(req.body.age)) ||
-    (await Cat.findAll({ where: { name: req.body.name } })).length > 0
-  ) {
-    res.statusCode = 400;
-    res.end();
-  } else {
-    await Cat.create({
+  if (!(req.body.name && req.body.age))
+    apiError(req, res, "You must fill out both fields!");
+  else if (isNaN(parseInt(req.body.age)))
+    apiError(req, res, "The age must be a number!");
+  else if ((await Cat.findAll({ where: { name: req.body.name } })).length > 0)
+    apiError(req, res, "That name is already taken!");
+  else {
+    const cat = await Cat.create({
       name: req.body.name,
       age: req.body.age,
     });
-    res.end();
+    res.json(cat);
   }
+});
+
+app.delete("/api/cats", async (req, res) => {
+  const id = parseInt(req.query.id);
+  await Cat.destroy({ where: { id: id } });
+  res.end();
 });
 
 // web
